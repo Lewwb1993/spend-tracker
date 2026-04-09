@@ -4,7 +4,6 @@ import { fmtDate } from '../utils';
 export default function ReservationSheet({ date, existing, remainingBudget, onSave, onClear, onClose }) {
   const [input, setInput] = useState('');
   const [warning, setWarning] = useState('');
-  const inputRef = useRef(null);
   const touchStartY = useRef(0);
 
   const open = !!date;
@@ -13,7 +12,7 @@ export default function ReservationSheet({ date, existing, remainingBudget, onSa
     if (open) {
       setInput(existing != null ? String(existing) : '');
       setWarning('');
-      setTimeout(() => inputRef.current?.focus(), 80);
+      // No auto-focus — keyboard would push Reserve button off-screen
     }
   }, [open, existing]);
 
@@ -45,15 +44,22 @@ export default function ReservationSheet({ date, existing, remainingBudget, onSa
         onTouchMove={handleTouchMove}
       >
         <div className="sheet-handle" />
-        <div className="sheet-title">
-          📌 Reserve Day
-          {date && <div className="res-date-label">{fmtDate(date)}</div>}
+
+        <div className="res-sheet-header">
+          <div className="sheet-title" style={{ marginBottom: 0 }}>
+            📌 Reserve Day
+            {date && <div className="res-date-label">{fmtDate(date)}</div>}
+          </div>
+          {existing != null && (
+            <button className="btn-clear-res-inline" onClick={handleClear}>
+              × Clear
+            </button>
+          )}
         </div>
 
-        <div className="field">
+        <div className="field" style={{ marginTop: 20 }}>
           <label>Amount £</label>
           <input
-            ref={inputRef}
             className="amount-input"
             type="number"
             placeholder="0.00"
@@ -69,12 +75,6 @@ export default function ReservationSheet({ date, existing, remainingBudget, onSa
         {warning && <div className="res-warning">{warning}</div>}
 
         <button className="btn-log" onClick={handleSave}>Reserve</button>
-
-        {existing != null && (
-          <button className="btn-clear-res" onClick={handleClear}>
-            Clear reservation
-          </button>
-        )}
       </div>
     </>
   );

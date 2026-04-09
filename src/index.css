@@ -552,6 +552,13 @@ header {
 /* ─── RESERVATION SHEET ──────────────── */
 .reservation-sheet { max-height: 60vh; }
 
+.res-sheet-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
 .res-date-label {
   font-family: var(--mono);
   font-size: 12px;
@@ -559,6 +566,21 @@ header {
   font-weight: 400;
   margin-top: 4px;
 }
+
+.btn-clear-res-inline {
+  background: var(--warn-dim);
+  border: 1px solid var(--warn);
+  color: var(--warn);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-family: var(--mono);
+  font-size: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.btn-clear-res-inline:active { background: var(--warn); color: #000; }
 
 .res-warning {
   background: var(--warn-dim);
@@ -570,20 +592,6 @@ header {
   font-family: var(--mono);
   margin-bottom: 12px;
 }
-
-.btn-clear-res {
-  width: 100%;
-  background: none;
-  border: 1px solid var(--border);
-  color: var(--muted);
-  padding: 13px;
-  border-radius: 13px;
-  font-family: var(--sans);
-  font-size: 14px;
-  cursor: pointer;
-  margin-top: 10px;
-}
-.btn-clear-res:active { border-color: var(--warn); color: var(--warn); }
 
 /* ─── DESKTOP OVERRIDE ───────────────── */
 @media (min-width: 640px) {
